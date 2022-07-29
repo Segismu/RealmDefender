@@ -5,21 +5,52 @@ using UnityEngine;
 public class EnemyMover : MonoBehaviour
 {
     [SerializeField] List<WayPoint> path = new List<WayPoint>();
-    [SerializeField] float waitTime = 1f;
+    [SerializeField] [Range(0f, 5f)]float speed = 1f;
 
 
-    void Start()
+    void OnEnable()
     {
-        StartCoroutine(PrintWaypointName());
-        InvokeRepeating("PrintWaypointName", 0, 1f);
+        FindPath();
+        ReturnToStart();
+        StartCoroutine(FollowPath());
     }
 
-    IEnumerator PrintWaypointName()
+    void FindPath()
+    {
+        path.Clear();
+
+        GameObject[] waypoints = GameObject.FindGameObjectsWithTag("Path");
+
+        foreach(GameObject waypoint in waypoints)
+        {
+            path.Add(waypoint.GetComponent<WayPoint>());
+        }
+    }
+
+    void ReturnToStart()
+    {
+        transform.position = path[0].transform.position;
+    }
+
+    IEnumerator FollowPath()
     {
         foreach(WayPoint waypoint in path)
         {
-            transform.position = waypoint.transform.position;
-            yield return new WaitForSeconds(waitTime);
+            Vector3 startPosition = transform.position;
+            Vector3 endPosition = waypoint.transform.position;
+            float travelPercent = 0f;
+
+            transform.LookAt(endPosition);
+
+            while(travelPercent < 1f)
+            {
+                travelPercent += Time.deltaTime * speed;
+                transform.position = Vector3.Lerp(startPosition, endPosition, travelPercent);
+                yield return new WaitForEndOfFrame();
+            }
+            
         }
+
+        gameObject.SetActive(false);
     }
 }
