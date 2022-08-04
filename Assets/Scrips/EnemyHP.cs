@@ -2,10 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Enemy))]
 public class EnemyHP : MonoBehaviour
 {
     [SerializeField] int maxHitPoints = 5;
-    [SerializeField] int currentHitPoints = 0;
+
+    [Tooltip("Increase maxHitPoints when enemy destroyed.")]
+    [SerializeField] int difficultyLvl = 1;
+    int currentHitPoints = 0;
 
     Enemy enemy;
 
@@ -31,6 +35,7 @@ public class EnemyHP : MonoBehaviour
         if (currentHitPoints <= 0)
         {
             gameObject.SetActive(false);
+            maxHitPoints += difficultyLvl;
             enemy.RewardGold();
         }
 

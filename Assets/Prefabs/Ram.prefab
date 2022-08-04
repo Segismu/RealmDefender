@@ -141,7 +141,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  speed: 2.47
+  speed: 3
 --- !u!65 &7239273601724896932
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -167,8 +167,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ae6da492223e49e485c02d8e6d41da8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHitPoints: 5
-  currentHitPoints: 0
+  maxHitPoints: 2
+  difficultyLvl: 2
 --- !u!114 &6746020139380302358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -181,3 +181,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69d3a816913124286825a5eb2fe71dcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  goldReward: 25
+  goldPenalty: 25
